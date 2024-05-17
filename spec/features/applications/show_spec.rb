@@ -135,7 +135,7 @@ describe "Application Show" do
 
             expect(find("form")).to have_content("Why I would make a good owner to these pet(s)")
 
-            within "#submit form" do
+            within "#submit_form" do
                 fill_in "Why I would make a good owner to these pet(s)", with: "I will love them till I die"
             end
 
@@ -154,5 +154,22 @@ describe "Application Show" do
             expect(page).to_not have_content("Seach pets by name")
             expect(page).to_not have_link("Adopt this Pet")
         end
+
+        it 'can add pets to application if it is not submitted' do
+            app = Application.create!(
+                name: "Chee Lee",
+                street_address: "123 street",
+                city: "New Orleans",
+                state: "Louisana",
+                zip_code: "12345",
+                description: "I will love that dog till I die",
+                status: "In Progress",
+            )
+
+            visit "/applications/#{app.id}"
+
+            #same as previous story, not sure how to write 'not seeing a section by id'
+            # expect(page).to_not have_content("#submit_form")
+            expect(page).to_not have_link("Submit Application")
     end
 end
