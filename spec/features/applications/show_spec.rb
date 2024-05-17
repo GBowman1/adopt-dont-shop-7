@@ -25,7 +25,7 @@ describe "Application Show" do
                 expect(page).to have_content(app.description)
                 expect(page).to have_content(app.status)
             end
-
         end
+        
     end
 end
