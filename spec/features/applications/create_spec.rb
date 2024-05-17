@@ -5,7 +5,7 @@ describe "Application Create" do
     it "can create a new Application" do
       visit "/applications/new"
 
-      expect(page).to have_content("New Pet")
+      expect(page).to have_content("New Application Form")
       expect(find("form")).to have_content("Name")
       expect(find("form")).to have_content("Street Address")
       expect(find("form")).to have_content("City")
@@ -23,8 +23,8 @@ describe "Application Create" do
       end
       click_button "Submit"
 
-      expect(page).to have_current_path("/applications/show")
-      expect(page).to have_content("Name: Chee")
+      expect(page).to have_current_path("/applications/#{Application.last.id}")
+      expect(page).to have_content("Chee")
     end
   end
 end
