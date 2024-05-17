@@ -1,5 +1,12 @@
+<% if flash[:alert] %>
+    <div class="alert alert-danger">
+        <%= flash[:alert] %>
+    </div>
+<% end %>
+
 <h1>New Application Form</h1>
-<%= form_with url: "/applications/#{@application.id}", method: :post, local: true, html: { id: "applicant_form" } do |f| %>
+
+<%= form_with url: "/applications", method: :post, local: true, html: { id: "applicant_form" } do |f| %>
     <div class="form-group">
         <%= f.label :name, "Name" %>
         <%= f.text_field :name, class: "form-control" %>
