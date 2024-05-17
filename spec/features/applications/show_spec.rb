@@ -135,7 +135,7 @@ describe "Application Show" do
 
             expect(find("form")).to have_content("Why I would make a good owner to these pet(s)")
 
-            within "#submit form" do
+            within "#submit_form" do
                 fill_in "Why I would make a good owner to these pet(s)", with: "I will love them till I die"
             end
 
