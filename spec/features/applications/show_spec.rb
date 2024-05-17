@@ -29,6 +29,16 @@ describe "Application Show" do
         
         #story 5
         it 'can add pets to application if it is not submitted' do
+            app = Application.create!(
+                name: "Chee Lee",
+                street_address: "123 street",
+                city: "New Orleans",
+                state: "Louisana",
+                zip_code: "12345",
+                description: "I will love that dog till I die",
+                status: "In Progress",
+            )
+
             hazel = Pets.create!(
                 name: "Hazel",
                 breed: "German Shepherd",
@@ -36,7 +46,7 @@ describe "Application Show" do
                 adoptable: true
             )
 
-            visit "/applications/show"
+            visit "/applications/#{app.id}"
 
             expect(page).to have_content("Add a Pet to this Application")
             expect(find("form")).to have_content("Seach pets by name")
@@ -46,7 +56,7 @@ describe "Application Show" do
             end
             click_button "Submit"
 
-            expect(page).to have_current_path("/applications/show")
+            expect(page).to have_current_path("/applications/#{app.id}")
             within "#pet_search_results" do
                 expect(page).to have_content("Name: Hazel")
             end
@@ -56,6 +66,16 @@ describe "Application Show" do
         end
 
         it "can add a pet to an application" do
+            app = Application.create!(
+                name: "Chee Lee",
+                street_address: "123 street",
+                city: "New Orleans",
+                state: "Louisana",
+                zip_code: "12345",
+                description: "I will love that dog till I die",
+                status: "In Progress",
+            )
+
             hazel = Pets.create!(
                 name: "Hazel",
                 breed: "German Shepherd",
@@ -63,7 +83,7 @@ describe "Application Show" do
                 adoptable: true
             )
 
-            visit "/applications/show"
+            visit "/applications/#{app.id}"
 
             within "#search_pets_by_name" do
                 fill_in "Seach pets by name", with: "Hazel"
@@ -81,7 +101,7 @@ describe "Application Show" do
 
             click_button "Adopt this Pet"
 
-            expect(page).to have_current_path("applications/show")
+            expect(page).to have_current_path("applications/#{app.id}")
 
             within "#pets_to_adopt" do
                 expect(page).to have_content("Hazel")

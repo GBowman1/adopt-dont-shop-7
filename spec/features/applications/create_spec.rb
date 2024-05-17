@@ -23,7 +23,7 @@ describe "Application Create" do
       end
       click_button "Submit"
 
-      expect(page).to have_current_path("/applications/show")
+      expect(page).to have_current_path("/applications/#{Application.last.id}")
       expect(page).to have_content("Name: Chee")
     end
 
