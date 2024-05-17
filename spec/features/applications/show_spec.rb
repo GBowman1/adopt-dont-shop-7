@@ -56,7 +56,7 @@ describe "Application Show" do
             end
             click_button "Submit"
 
-            expect(page).to have_current_path("/applications/show")
+            expect(page).to have_current_path("/applications/#{app.id}")
             within "#pet_search_results" do
                 expect(page).to have_content("Name: Hazel")
             end
