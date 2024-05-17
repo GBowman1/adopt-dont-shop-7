@@ -26,5 +26,17 @@ describe "Application Create" do
       expect(page).to have_current_path("/applications/show")
       expect(page).to have_content("Name: Chee")
     end
+
+    it "shows error when I fail to fill any form field" do
+      visit "/applications/new"
+
+      within "#applicant_form" do
+      fill_in "Name", with: "Chee"
+      end
+      click_button "Submit"
+
+      expect(page).to have_current_path("/applications/new")
+      expect(page).to have_content("You must fill in all fields")
+    end
   end
 end
