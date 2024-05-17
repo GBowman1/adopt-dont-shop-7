@@ -29,14 +29,24 @@ describe "Application Show" do
         
         #story 5
         it 'can add pets to application if it is not submitted' do
+            app = Application.create!(
+                name: "Chee Lee",
+                street_address: "123 street",
+                city: "New Orleans",
+                state: "Louisana",
+                zip_code: "12345",
+                description: "I will love that dog till I die",
+                status: "In Progress",
+            )
+
             hazel = Pets.create!(
                 name: "Hazel",
                 breed: "German Shepherd",
                 age: 5,
                 adoptable: true
-            )
+                )
 
-            visit "/applications/show"
+            visit "/applications/#{app.id}"
 
             expect(page).to have_content("Add a Pet to this Application")
             expect(find("form")).to have_content("Seach pets by name")
