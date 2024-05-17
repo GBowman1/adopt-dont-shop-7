@@ -54,5 +54,38 @@ describe "Application Show" do
             #not sure if I wrote the appear before test correctly, at end of story 4
             expect("#search_pets_by_name").to appear_before("#pet_search_results")
         end
+
+        it "can add a pet to an application" do
+            hazel = Pets.create!(
+                name: "Hazel",
+                breed: "German Shepherd",
+                age: 5,
+                adoptable: true
+            )
+
+            visit "/applications/show"
+
+            within "#search_pets_by_name" do
+                fill_in "Seach pets by name", with: "Hazel"
+            end
+            click_button "Submit"
+
+            within "#pet_search_results" do
+                expect(page).to have_content("Name: Hazel")
+                expect(page).to have_button("Adopt this Pet")
+            end
+
+            within "#pets_to_adopt" do
+                expect(page).to_not have_content("Hazel")
+            end
+
+            click_button "Adopt this Pet"
+
+            expect(page).to have_current_path("applications/show")
+
+            within "#pets_to_adopt" do
+                expect(page).to have_content("Hazel")
+            end
+        end
     end
 end
