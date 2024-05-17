@@ -27,5 +27,32 @@ describe "Application Show" do
             end
         end
         
+        #story 5
+        it 'can add pets to application if it is not submitted' do
+            hazel = Pets.create!(
+                name: "Hazel",
+                breed: "German Shepherd",
+                age: 5,
+                adoptable: true
+            )
+
+            visit "/applications/show"
+
+            expect(page).to have_content("Add a Pet to this Application")
+            expect(find("form")).to have_content("Seach pets by name")
+
+            within "#search_pets_by_name" do
+                fill_in "Seach pets by name", with: "Hazel"
+            end
+            click_button "Submit"
+
+            expect(page).to have_current_path("/applications/show")
+            within "#pet_search_results" do
+                expect(page).to have_content("Name: Hazel")
+            end
+
+            #not sure if I wrote the appear before test correctly, at end of story 4
+            expect("#search_pets_by_name").to appear_before("#pet_search_results")
+        end
     end
 end
