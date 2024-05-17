@@ -87,5 +87,11 @@ describe "Application Show" do
                 expect(page).to have_content("Hazel")
             end
         end
+
+        it "can submit an application" do
+            visit "/applications/show"
+
+            
+        end
     end
 end
