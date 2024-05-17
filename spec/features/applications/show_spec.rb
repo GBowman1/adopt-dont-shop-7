@@ -109,9 +109,50 @@ describe "Application Show" do
         end
 
         it "can submit an application" do
-            visit "/applications/show"
+            app = Application.create!(
+                name: "Chee Lee",
+                street_address: "123 street",
+                city: "New Orleans",
+                state: "Louisana",
+                zip_code: "12345",
+                description: "I will love that dog till I die",
+                status: "In Progress",
+            )
 
-            
+            hazel = Pets.create!(
+                name: "Hazel",
+                breed: "German Shepherd",
+                age: 5,
+                adoptable: true
+            )
+
+            visit "/applications/#{app.id}"
+            within "#search_pets_by_name" do
+                fill_in "Seach pets by name", with: "Hazel"
+            end
+            click_button "Submit"
+            click_button "Adopt this Pet"
+
+            expect(find("form")).to have_content("Why I would make a good owner to these pet(s)")
+
+            within "#submit form" do
+                fill_in "Why I would make a good owner to these pet(s)", with: "I will love them till I die"
+            end
+
+            expect(page).to have_link("Submit Application")
+            click_button "Submit Application"
+
+            expect(page).to have_current_path("/application/#{app.id}")
+
+            expect(page).to have_content("Status: Pending")
+            within "#pets_to_adopt" do
+            expect(page).to have_content("Hazel")
+            end
+            #(not sure if this is how to write 'not have_content of the id #search_pets_by_name')
+            # expect(page).to_not have_content("#search_pets_by_name")
+            #will have to review this test to make more robust
+            expect(page).to_not have_content("Seach pets by name")
+            expect(page).to_not have_link("Adopt this Pet")
         end
     end
 end
