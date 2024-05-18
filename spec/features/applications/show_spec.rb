@@ -142,5 +142,32 @@ describe "Application Show" do
             expect(page).to_not have_selector("#submit_form")
             expect(page).to_not have_link("Submit Application")
         end
+
+        #story 8
+        it 'can find pet by partial search' do
+
+            visit "/applications/#{@app.id}"
+            within "#search_pets_by_name" do
+                fill_in "search", with: "zel"
+            end
+            click_button "Search"
+
+            within "#pet_search_results" do
+                expect(page).to have_content("Name: #{@hazel.name}")
+            end
+        end
+
+        #story 9
+        it 'searches pets regardless of casing of input' do
+            visit "/applications/#{@app.id}"
+            within "#search_pets_by_name" do
+                fill_in "search", with: "HAzel"
+            end
+            click_button "Search"
+
+            within "#pet_search_results" do
+                expect(page).to have_content("Name: #{@hazel.name}")
+            end
+        end
     end
 end
