@@ -12,7 +12,7 @@
   <div id="add_pet">
     <h2> Add a Pet to this Application </h2>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true, html: { id: "search_pets_by_name" } do |f| %>
-      <%= f.label :search %>
+      <%= f.label :search_pets_by_name %>
       <%= f.text_field :search %>
       <%= f.submit "Search" %>
     <% end %>
