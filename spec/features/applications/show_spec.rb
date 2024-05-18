@@ -39,13 +39,13 @@ describe "Application Show" do
                 status: "In Progress",
             )
 
-            hazel = Pets.create!(
+            hazel = Pet.create!(
                 name: "Hazel",
                 breed: "German Shepherd",
                 age: 5,
                 adoptable: true
             )
-
+            
             visit "/applications/#{app.id}"
 
             expect(page).to have_content("Add a Pet to this Application")
@@ -171,5 +171,6 @@ describe "Application Show" do
             #same as previous story, not sure how to write 'not seeing a section by id'
             # expect(page).to_not have_content("#submit_form")
             expect(page).to_not have_link("Submit Application")
+        end
     end
 end
