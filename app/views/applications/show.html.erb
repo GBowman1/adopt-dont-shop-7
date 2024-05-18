@@ -8,6 +8,15 @@
   <h3><%= @application.status %></h3>
 </div>
 
+<div id="pets_to_adopt">
+  <h2>Pets to adopt</h2>
+  <% @application.pets.each do |pet| %>
+    <p>Name: <%= pet.name %></p>
+    <p>Breed: <%= pet.breed %></p>
+    <p>Age: <%= pet.age %></p>
+    <p>Adoptable: <%= pet.adoptable %></p>
+  <% end %>
+</div>
 
   <div id="add_pet">
     <h2> Add a Pet to this Application </h2>
@@ -16,7 +25,6 @@
       <%= f.text_field :search %>
       <%= f.submit "Search" %>
     <% end %>
-
   </div>
 
 <% if params[:search].present? %>
@@ -27,6 +35,7 @@
       <p>Breed: <%= pet.breed %></p>
       <p>Age: <%= pet.age %></p>
       <p>Adoptable: <%= pet.adoptable %></p>
+      <p><%= link_to "Adopt #{pet.name}", "/applications/#{@application.id}?adopt=#{pet.id}", method: :get %></p>
     <% end %>
   </div>
 <% end %>
