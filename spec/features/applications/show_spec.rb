@@ -42,11 +42,13 @@ describe "Application Show" do
             
             visit "/applications/#{@app.id}"
 # save_and_open_page
-            expect(page).to have_content("Add a Pet to this Application")
-            expect(find("form")).to have_content("Search pets by name")
+            within "#add_pet" do
+                expect(page).to have_content("Add a Pet to this Application")
+                expect(find("form")).to have_content("Search pets by name")
+            end
 
             within "#search_pets_by_name" do
-            fill_in "search", with: "Hazel"
+                fill_in "search", with: "Hazel"
             end
             click_button "Search"
 
@@ -54,7 +56,7 @@ describe "Application Show" do
             # expect(page).to have_current_path("/applications/#{@app.id}")
 # save_and_open_page
             within "#pet_search_results" do
-            expect(page).to have_content("Name: #{@hazel.name}")
+                expect(page).to have_content("Name: #{@hazel.name}")
             end
 
             #not sure if I wrote the appear before test correctly, at end of story 4
@@ -90,8 +92,7 @@ describe "Application Show" do
             # conditional for adopt
             # made .adopt_pet model instance method and test
 
-            #may not be correct path with query params
-            # expect(page).to have_current_path("/applications/#{@app.id}")
+            expect(page).to have_current_path("/applications/#{@app.id}?adopt=#{@hazel.id}")
 
 # save_and_open_page
             within "#pets_to_adopt" do
@@ -108,27 +109,27 @@ describe "Application Show" do
             end
             click_button "Search"
             click_link "Adopt #{@hazel.name}"
-
-            expect(find("form")).to have_content("Why I would make a good owner to these pet(s)")
-
             within "#submit_form" do
-                fill_in "Why I would make a good owner to these pet(s)", with: "I will love them till I die"
+                expect(find("form")).to have_content("What makes me a good owner to these pet(s)")
+                fill_in "why_me", with: "I will love them till I die"
             end
-
-            expect(page).to have_link("Submit Application")
+            
+            expect(page).to have_button("Submit Application")
             click_button "Submit Application"
-
-            #may not be correct path with query params
-            expect(page).to have_current_path("/application/#{@app.id}")
-
+            
+            expect(page).to have_current_path("/applications/#{@app.id}")
+            
+            # save_and_open_page
             expect(page).to have_content("Status: Pending")
+
             within "#pets_to_adopt" do
             expect(page).to have_content("Name: #{@hazel.name}")
             end
-            #(not sure if this is how to write 'not have_content of the id #search_pets_by_name')
-            # expect(page).to_not have_content("#search_pets_by_name")
-            #will have to review this test to make more robust
+
+            expect(page).to_not have_selector("#add_pet")
+            #add_pet content below
             expect(page).to_not have_content("Seach pets by name")
+            #pet_search_results below
             expect(page).to_not have_link("Adopt #{@hazel.name}")
         end
 
@@ -136,9 +137,9 @@ describe "Application Show" do
         it 'cannot submit application without adding pet' do
 
             visit "/applications/#{@app.id}"
-
-            #same as previous story, not sure how to write 'not seeing a section by id'
-            # expect(page).to_not have_content("#submit_form")
+            # save_and_open_page
+            expect(page).to have_selector("#pets_to_adopt")
+            expect(page).to_not have_selector("#submit_form")
             expect(page).to_not have_link("Submit Application")
         end
     end

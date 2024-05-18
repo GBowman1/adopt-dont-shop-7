@@ -1,11 +1,11 @@
 <div id="applicant_info">
   <h1><%= @application.name %></h1>
-  <h3><%= @application.street_address %> </h3>
-  <h3><%= @application.city %></h3>
-  <h3><%= @application.state %></h3>
-  <h3><%= @application.zip_code %></h3>
-  <h3><%= @application.description %></h3>
-  <h3><%= @application.status %></h3>
+  <p>Name: <%= @application.street_address %> </p>
+  <p>City: <%= @application.city %></p>
+  <p>State: <%= @application.state %></p>
+  <p>Zip Code: <%= @application.zip_code %></p>
+  <p>Description: <%= @application.description %></p>
+  <p>Status: <%= @application.status %></p>
 </div>
 
 <div id="pets_to_adopt">
@@ -18,6 +18,7 @@
   <% end %>
 </div>
 
+<% if @application.status == "In Progress" %>
   <div id="add_pet">
     <h2> Add a Pet to this Application </h2>
     <%= form_with url: "/applications/#{@application.id}", method: :get, local: true, html: { id: "search_pets_by_name" } do |f| %>
@@ -26,6 +27,7 @@
       <%= f.submit "Search" %>
     <% end %>
   </div>
+<% end %>
 
 <% if params[:search].present? %>
   <div id="pet_search_results">
@@ -39,3 +41,12 @@
     <% end %>
   </div>
 <% end %>
+
+
+  <div id="submit_form">
+    <%= form_with url: "/applications/#{@application.id}?status=Pending", method: :patch, local: true do |f| %>
+      <%= f.label "What makes me a good owner to these pet(s)" %>
+      <%= f.text_field :why_me %>
+      <%= f.submit "Submit Application" %>
+    <% end %>
+  </div>

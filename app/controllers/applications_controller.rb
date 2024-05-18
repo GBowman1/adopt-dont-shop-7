@@ -29,6 +29,18 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    @application = Application.find(params[:id])
+    # pry
+    if @application.update(application_params)
+      # pry
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:alert] = "Error: #{error_message(@application.errors)}"
+      redirect_to "/applications/#{@application.id}"
+    end
+  end
+
   private
   def application_params
     params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
