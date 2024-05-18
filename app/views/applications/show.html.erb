@@ -42,7 +42,7 @@
   </div>
 <% end %>
 
-
+<% if @application.pets.present? %>
   <div id="submit_form">
     <%= form_with url: "/applications/#{@application.id}?status=Pending", method: :patch, local: true do |f| %>
       <%= f.label "What makes me a good owner to these pet(s)" %>
@@ -50,3 +50,4 @@
       <%= f.submit "Submit Application" %>
     <% end %>
   </div>
+<% end %>
