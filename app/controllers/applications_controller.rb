@@ -5,6 +5,14 @@ class ApplicationsController < ApplicationController
   
   def show
     @application = Application.find(params[:id])
+    if params[:adopt].present?
+      pet = Pet.find(params[:adopt])
+      @application.add_pet(pet)
+    elsif params[:search].present?
+      @pet = Pet.search(params[:search])
+    else
+      @pet = []
+    end
   end
 
   def new
@@ -18,6 +26,18 @@ class ApplicationsController < ApplicationController
     else
       flash[:alert] = "You must fill in all fields"
       redirect_to "/applications/new"
+    end
+  end
+
+  def update
+    @application = Application.find(params[:id])
+    # pry
+    if @application.update(application_params)
+      # pry
+      redirect_to "/applications/#{@application.id}"
+    else
+      flash[:alert] = "Error: #{error_message(@application.errors)}"
+      redirect_to "/applications/#{@application.id}"
     end
   end
 
