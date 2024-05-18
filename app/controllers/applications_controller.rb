@@ -7,7 +7,7 @@ class ApplicationsController < ApplicationController
     @application = Application.find(params[:id])
     if params[:search].present?
       @pet = Pet.search(params[:search])
-      binding.pry
+      # binding.pry
     else
       @pet = []
     end
