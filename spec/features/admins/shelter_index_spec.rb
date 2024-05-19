@@ -14,8 +14,9 @@ RSpec.describe "the admin shelters index" do
     it 'see a section with shelters listed reverse alphabetical by name' do
       visit "/admin/shelters"
 # save_and_open_page
-      expect(page).to have_content("")
-      expect(page).to have_content("")
+      expect(page).to have_content("#{@shelter1.name}")
+      expect(page).to have_content("#{@shelter2.name}")
+      expect(page).to have_content("#{@shelter3.name}")
       expect("#{@shelter_2.name}").to appear_before("#{@shelter_1.name}")
       expect("#{@shelter_2.name}").to appear_before("#{@shelter_3.name}")
       expect("#{@shelter_3.name}").to appear_before("#{@shelter_1.name}")
@@ -27,7 +28,12 @@ RSpec.describe "the admin shelters index" do
 
         expect(page).to have_selector("with_pending_app")
         expect(page).to have_content("Shelters with Pending Applications")
-        expect(page).to have_content("app1")
+
+        within "with_pending_app" do
+          expect(page).to have_content("#{@shelter1.name}")
+          expect(page).to have_content("#{@shelter2.name}")
+          expect(page).to_not have_content("#{@shelter3.name}")
+        end
     end
   end
 end
