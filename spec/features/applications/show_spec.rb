@@ -38,7 +38,7 @@ describe "Application Show" do
         end
         
         # story 4
-        it 'can add pets to application if it is not submitted' do
+        it 'can search pets to add to application if it is not submitted' do
             
             visit "/applications/#{@app.id}"
 # save_and_open_page

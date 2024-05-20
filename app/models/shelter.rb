@@ -27,7 +27,8 @@ class Shelter < ApplicationRecord
     joins(:applications)
       .select("shelters.*, applications.*")
       .where("applications.status = ?", "Pending")
-      .select("shelters.*")
+      # .select("shelters.*")
+      #trying to select just shelters and not nil values
   end
 
   def pet_count

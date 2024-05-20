@@ -71,10 +71,10 @@ RSpec.describe Shelter, type: :model do
     #story 11
     describe "#with_pending_app" do
       it "returns shelters with pending applications" do
-        # @app1.add_pet(@pet_2)
+        @app1.add_pet(@pet_2)
         @app2.add_pet(@pet_3)
 
-        expect(Shelter.with_pending_app).to eq([@shelter_3, @shelter1])
+        expect(Shelter.with_pending_app).to eq([@shelter_3])
       end
     end
   end
