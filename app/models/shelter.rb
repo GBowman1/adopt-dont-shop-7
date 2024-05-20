@@ -4,6 +4,7 @@ class Shelter < ApplicationRecord
   validates :city, presence: true
 
   has_many :pets, dependent: :destroy
+  has_many :applications, through: :pets
 
   def self.order_by_recently_created
     order(created_at: :desc)
@@ -19,6 +20,15 @@ class Shelter < ApplicationRecord
       .joins("LEFT OUTER JOIN pets ON pets.shelter_id = shelters.id")
       .group("shelters.id")
       .order("pets_count DESC")
+  end
+
+  def self.with_pending_app
+    # pry
+    joins(:applications)
+      .select("shelters.*, applications.*")
+      .where("applications.status = ?", "Pending")
+      .select("shelters.*")
+      #trying to select just shelters and not nil values
   end
 
   def pet_count
