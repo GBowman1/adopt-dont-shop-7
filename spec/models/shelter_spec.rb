@@ -74,6 +74,7 @@ RSpec.describe Shelter, type: :model do
         @app1.add_pet(@pet_2)
         @app2.add_pet(@pet_3)
 
+        # pry
         expect(Shelter.with_pending_app).to eq([@shelter_3])
       end
     end

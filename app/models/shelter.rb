@@ -25,10 +25,10 @@ class Shelter < ApplicationRecord
   def self.with_pending_app
     # pry
     joins(:applications)
-      .select("shelters.*, applications.*")
+      .select("shelters.*, applications.status")
       .where("applications.status = ?", "Pending")
-      .select("shelters.*")
-      #trying to select just shelters and not nil values
+      # .select("shelters.*")
+      # selects just shelters, it was returning full joins table
   end
 
   def pet_count

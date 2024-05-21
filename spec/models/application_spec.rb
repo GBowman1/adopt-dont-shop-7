@@ -26,8 +26,9 @@ RSpec.describe Application, type: :model do
                 age: 5,
                 adoptable: true
             )
+            
             @app.add_pet(@hazel)
-
+            # pry
             expect(@app.pets).to eq([@hazel])
         end
         it 'can approve pet' do
