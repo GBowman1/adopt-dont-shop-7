@@ -1,3 +1,6 @@
+## Database Schema
+<img width="1144" alt="DBSCHEMAADS" src="https://github.com/GBowman1/adopt-dont-shop-7/assets/74687494/f0a852e2-a795-44d6-a43a-e523f4cf5dea">
+
 # Adopt, don't Shop
 
 This is a paired project used in Turing School's Backend Program Module 2.

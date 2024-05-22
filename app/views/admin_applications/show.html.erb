@@ -18,8 +18,8 @@
                 <p>Adoptable: <%= pet.adoptable %></p>
                 <% application_pet = @application.application_pets.find_by(pet_id: pet.id) %>
                 <%if application_pet.approved == nil%>
-                    <%= link_to "Approve", "/admin/applications/#{@application.id}?approve=#{pet.id}", method: :patch, class: "btn btn-success m-1" %>
-                    <%= link_to "Reject", "/admin/applications/#{@application.id}?reject=#{pet.id}", method: :patch, class: "btn btn-danger m-1" %>
+                    <%= link_to "Approve", "/admin/applications/#{@application.id}?approve=#{pet.id}", data: {turbo_method: :patch} , class: "btn btn-success m-1" %>
+                    <%= link_to "Reject", "/admin/applications/#{@application.id}?reject=#{pet.id}", data: {turbo_method: :patch} , class: "btn btn-danger m-1" %>
                 <% elsif application_pet.approved == true %>
                     <p> Approved </p>
                 <% elsif application_pet.approved == false%>
