@@ -22,7 +22,7 @@
   state: "Louisana",
   zip_code: "12345",
   description: "I will love that dog till I die",
-  status: "In Process",
+  status: "In Progress",
 )
 
 @app2 = Application.create!(
@@ -32,5 +32,5 @@
   state: "Nevada",
   zip_code: "54321",
   description: "I will love that dog till it dies",
-  status: "Pending",
+  status: "In Progress",
 )
