@@ -1,27 +1,31 @@
-<div id="applicant_info">
-    <h1><%= @application.name %></h1>
-    <p>Name: <%= @application.street_address %> </p>
-    <p>City: <%= @application.city %></p>
-    <p>State: <%= @application.state %></p>
-    <p>Zip Code: <%= @application.zip_code %></p>
-    <p>Description: <%= @application.description %></p>
-    <p>Status: <%= @application.status %></p>
-</div>
-<div id="pet-request">
-    <h2>Pets to adopt</h2>
-    <% @application.pets.each do |pet| %>
-        <p>Name: <%= pet.name %></p>
-        <p>Breed: <%= pet.breed %></p>
-        <p>Age: <%= pet.age %></p>
-        <p>Adoptable: <%= pet.adoptable %></p>
-        <% application_pet = @application.application_pets.find_by(pet_id: pet.id) %>
-        <%if application_pet.approved == nil%>
-            <%= link_to "Approve", "/admin/applications/#{@application.id}?approve=#{pet.id}", method: :patch %>
-            <%= link_to "Reject", "/admin/applications/#{@application.id}?reject=#{pet.id}", method: :patch %>
-        <% elsif application_pet.approved == true %>
-            <p> Approved </p>
-        <% elsif application_pet.approved == false%>
-            <p> Rejected </p>
+<div class="container">
+    <div id="applicant_info">
+        <h1><%= @application.name %></h1>
+        <p>Name: <%= @application.street_address %> </p>
+        <p>City: <%= @application.city %></p>
+        <p>State: <%= @application.state %></p>
+        <p>Zip Code: <%= @application.zip_code %></p>
+        <p>Description: <%= @application.description %></p>
+        <p>Status: <%= @application.status %></p>
+    </div>
+    <div id="pet-request" class="m-1">
+        <h2>Pets to adopt</h2>
+        <% @application.pets.each do |pet| %>
+            <div class="m-2">
+                <p>Name: <%= pet.name %></p>
+                <p>Breed: <%= pet.breed %></p>
+                <p>Age: <%= pet.age %></p>
+                <p>Adoptable: <%= pet.adoptable %></p>
+                <% application_pet = @application.application_pets.find_by(pet_id: pet.id) %>
+                <%if application_pet.approved == nil%>
+                    <%= link_to "Approve", "/admin/applications/#{@application.id}?approve=#{pet.id}", method: :patch, class: "btn btn-success m-1" %>
+                    <%= link_to "Reject", "/admin/applications/#{@application.id}?reject=#{pet.id}", method: :patch, class: "btn btn-danger m-1" %>
+                <% elsif application_pet.approved == true %>
+                    <p> Approved </p>
+                <% elsif application_pet.approved == false%>
+                    <p> Rejected </p>
+                <% end %>
+            </div>
         <% end %>
-    <% end %>
+    </div>
 </div>

@@ -15,8 +15,8 @@ class AdminApplicationsController < ApplicationController
         redirect_to "/admin/applications/#{params[:id]}"
     end
 
-    private
-    def application_params
-        params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
-    end
+    # private
+    # def application_params
+    #     params.permit(:name, :street_address, :city, :state, :zip_code, :description, :status)
+    # end
 end
