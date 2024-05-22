@@ -11,7 +11,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_reverse_alpha_sql
-    # order(name: :desc)
     find_by_sql("SELECT * FROM shelters ORDER BY shelters.name desc")
   end
 
@@ -23,13 +22,9 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_pending_app
-    # pry
     joins(:applications)
-      # .select("shelters.*, applications.*")
       .select("shelters.*, applications.status")
       .where("applications.status = ?", "Pending")
-      # .select("shelters.*")
-      # selects just shelters, it was returning full joins table
   end
 
   def pet_count

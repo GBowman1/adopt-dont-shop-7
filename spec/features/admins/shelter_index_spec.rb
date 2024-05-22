@@ -29,10 +29,8 @@ RSpec.describe "the admin shelters index" do
     )
   end
   describe "As a Vistior" do
-    #story 10
     it 'see a section with shelters listed reverse alphabetical by name' do
       visit "/admin/shelters"
-# save_and_open_page
       expect(page).to have_content("#{@shelter_1.name}")
       expect(page).to have_content("#{@shelter_2.name}")
       expect(page).to have_content("#{@shelter_3.name}")
@@ -40,15 +38,12 @@ RSpec.describe "the admin shelters index" do
       expect("#{@shelter_2.name}").to appear_before("#{@shelter_3.name}")
       expect("#{@shelter_3.name}").to appear_before("#{@shelter_1.name}")
   end
-
-    #story 11
     it 'see name of every shelter that has a pending application' do
       @app2.add_pet(@pet_1)
       @app2.add_pet(@pet_2)
       @app1.add_pet(@pet_3)
 
       visit "/admin/shelters"
-# save_and_open_page
       expect(page).to have_selector("#with_pending_app")
       expect(page).to have_content("Shelters with Pending Applications")
 
