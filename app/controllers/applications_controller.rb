@@ -16,8 +16,6 @@ class ApplicationsController < ApplicationController
   end
 
   def new
-    # @application = Application.new
-    # i dont think this is needed
   end
 
   def create

@@ -35,6 +35,7 @@ describe "Application Show" do
             within "#pet-request" do
                 expect(page).to have_link("Approve")
             end
+
             within "#pet-request" do
             click_link "Approve"
                 expect(page).to have_current_path("/admin/applications/#{@app.id}")
