@@ -25,6 +25,7 @@ class Shelter < ApplicationRecord
   def self.with_pending_app
     # pry
     joins(:applications)
+      # .select("shelters.*, applications.*")
       .select("shelters.*, applications.status")
       .where("applications.status = ?", "Pending")
       # .select("shelters.*")
