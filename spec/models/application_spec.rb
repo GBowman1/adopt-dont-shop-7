@@ -28,7 +28,6 @@ RSpec.describe Application, type: :model do
             )
             
             @app.add_pet(@hazel)
-            # pry
             expect(@app.pets).to eq([@hazel])
         end
         it 'can approve pet' do
@@ -50,7 +49,6 @@ RSpec.describe Application, type: :model do
             )
             @app.add_pet(@hazel)
             @app.approve_pet(@hazel)
-
             expect(@app.application_pets.first.approved).to eq(true)
         end
         it 'can reject pet' do
