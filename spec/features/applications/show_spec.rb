@@ -36,12 +36,10 @@ describe "Application Show" do
                 expect(page).to have_content(@app.status)
             end
         end
-        
-        # story 4
         it 'can search pets to add to application if it is not submitted' do
             
             visit "/applications/#{@app.id}"
-# save_and_open_page
+
             within "#add_pet" do
                 expect(page).to have_content("Add a Pet to this Application")
                 expect(find("form")).to have_content("Search pets by name")
@@ -52,18 +50,11 @@ describe "Application Show" do
             end
             click_button "Search"
 
-            # not sure how to check path with query params added to path
-            # expect(page).to have_current_path("/applications/#{@app.id}")
-# save_and_open_page
             within "#pet_search_results" do
                 expect(page).to have_content("Name: #{@hazel.name}")
             end
-
-            #not sure if I wrote the appear before test correctly, at end of story 4
             expect("Search pets by name").to appear_before("Pet search results")
         end
-
-        # story 5
         it "can add a pet to an application" do
 
             visit "/applications/#{@app.id}"
@@ -76,31 +67,17 @@ describe "Application Show" do
             within "#pet_search_results" do
                 expect(page).to have_content("Name: #{@hazel.name}")
                 expect(page).to have_link("Adopt #{@hazel.name}")
-                # expect(page).to have_button("Adopt #{@hazel.name}")
-                #I couldn't get the button to send query params in path
             end
 
             within "#pets_to_adopt" do
                 expect(page).to_not have_content("Hazel")
             end
-# save_and_open_page
-            # click_button "Adopt #{@hazel.name}"
             click_link "Adopt #{@hazel.name}"
-
-            # how do you want to handle @applicant.pets
-            # patch "/applications/#{@app.id}.?adopt=#{pet.id}", to: applications#show"
-            # conditional for adopt
-            # made .adopt_pet model instance method and test
-
             expect(page).to have_current_path("/applications/#{@app.id}?adopt=#{@hazel.id}")
-
-# save_and_open_page
             within "#pets_to_adopt" do
                 expect(page).to have_content("Name: #{@hazel.name}")
             end
         end
-
-        # story 6
         it "can submit an application" do
 
             visit "/applications/#{@app.id}"
@@ -118,8 +95,6 @@ describe "Application Show" do
             click_button "Submit Application"
             
             expect(page).to have_current_path("/applications/#{@app.id}")
-            
-            # save_and_open_page
             expect(page).to have_content("Status: Pending")
 
             within "#pets_to_adopt" do
@@ -127,23 +102,16 @@ describe "Application Show" do
             end
 
             expect(page).to_not have_selector("#add_pet")
-            #add_pet content below
             expect(page).to_not have_content("Seach pets by name")
-            #pet_search_results below
             expect(page).to_not have_link("Adopt #{@hazel.name}")
         end
-
-        # story 7
         it 'cannot submit application without adding pet' do
 
             visit "/applications/#{@app.id}"
-            # save_and_open_page
             expect(page).to have_selector("#pets_to_adopt")
             expect(page).to_not have_selector("#submit_form")
             expect(page).to_not have_link("Submit Application")
         end
-
-        #story 8
         it 'can find pet by partial search' do
 
             visit "/applications/#{@app.id}"
@@ -156,8 +124,6 @@ describe "Application Show" do
                 expect(page).to have_content("Name: #{@hazel.name}")
             end
         end
-
-        #story 9
         it 'searches pets regardless of casing of input' do
             visit "/applications/#{@app.id}"
             within "#search_pets_by_name" do

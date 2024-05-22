@@ -11,7 +11,6 @@ class Shelter < ApplicationRecord
   end
 
   def self.order_by_reverse_alpha_sql
-    # order(name: :desc)
     find_by_sql("SELECT * FROM shelters ORDER BY shelters.name desc")
   end
 
@@ -23,12 +22,10 @@ class Shelter < ApplicationRecord
   end
 
   def self.with_pending_app
-    # pry
     joins(:applications)
       .select("shelters.*, applications.*")
       .where("applications.status = ?", "Pending")
       .select("shelters.*")
-      #trying to select just shelters and not nil values
   end
 
   def pet_count
